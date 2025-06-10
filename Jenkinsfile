@@ -1,10 +1,11 @@
 pipeline {
-    agent any
+    agent { label 'kool' }
 
     environment {
         IMAGE_NAME = 'netflixclonepage'
         HOST_PORT = '82'
         CONTAINER_PORT = '80'
+        EC2_IP = 'YOUR_EC2_PUBLIC_IP'  // replace this with your real IP or use Jenkins credentials/env variables
     }
 
     stages {
@@ -44,7 +45,7 @@ pipeline {
 
     post {
         success {
-            echo "✅ Deployment successful! Visit http://<EC2-IP>:$HOST_PORT"
+            echo "✅ Deployment successful! Visit http://$EC2_IP:$HOST_PORT"
         }
         failure {
             echo "❌ Build or deployment failed."
